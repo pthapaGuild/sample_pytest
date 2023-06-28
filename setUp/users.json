@@ -1,0 +1,34 @@
+{
+  "staging": [
+    {
+      "user_email": "tech-qa-eum+uchealth-2@guildeducation.com",
+      "userUuid": "63334996-438a-4ef6-b62f-4b1f51dd321e"
+    },
+    {
+      "user_email": "tech-qa-eum+Pratik-Test-Walmart@guildeducation.com",
+      "userUuid": "63334996-438a-4ef6-b62f-4b1f51dd321e"
+    },
+    {
+      "user_email": "tech-qa-eum+pthapa-335387-courtney@guildeducation.com",
+      "userUuid": ""
+    },
+    {
+      "user_email": "tech-qa-eum+lowes-15@guildeducation.com",
+      "userUuid": ""
+    },
+    {
+      "user_email": "tech-qa-eum+macys002@guildeducation.com",
+      "userUuid": ""
+    },
+    {
+      "user_email": "tech-qa-eum+sentara-qe-test00017@guildeducation.com",
+      "userUuid": ""
+    }
+  ],
+  "prod": [
+    {
+      "user_email": "",
+      "userUuid": ""
+    }
+  ]
+}
