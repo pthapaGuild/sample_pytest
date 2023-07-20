@@ -1,14 +1,15 @@
+"""Sample PyTest File"""
+import os
 import json
 import argparse
 from dotenv import load_dotenv
-import os
 import httpx
 import pytest
 from setUp import set_admin_and_user_token as setToken
 
 # variables:
 
-program_uuid = "de5e58b5-1fce-4eba-a7c2-7ae4e47e48bd"
+PROGRAM_UUID = "de5e58b5-1fce-4eba-a7c2-7ae4e47e48bd"
 
 
 parser = argparse.ArgumentParser()
@@ -25,22 +26,27 @@ password = os.getenv("USER_PASSWORD")
 
 @pytest.mark.asyncio
 async def test_answer():
+    """This is just a sample test"""
     async with httpx.AsyncClient() as client:
         response = await client.get("https://jsonplaceholder.typicode.com/todos/1")
         assert response.status_code == 200
 
 
-def test_verifyPassword():
+def test_password():
+    """
+    Checking password value from env file is correct
+    """
     assert password == "password123"
 
 
-async def apply(user_access_token: str, programUuid: str):
+async def apply(user_access_token: str, program_uuid: str):
+    """Get the response of the apply funciton to be used later"""
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {user_access_token}'
     }
     payload = {
-        "offeringUuid": programUuid
+        "offeringUuid": program_uuid
     }
     apply_url = os.getenv("APPLY")
     try:
@@ -48,8 +54,8 @@ async def apply(user_access_token: str, programUuid: str):
             response = await client.post(url=apply_url, headers=headers, json=payload)
             json_data_from_response = response.json()
             return json_data_from_response
-    except Exception as e:
-        print(f"Error occured on /apply route: {e}")
+    except httpx.HTTPError as error:
+        print(f"Error occured on /apply route: {error}")
 
 
 @pytest.mark.asyncio
@@ -63,7 +69,10 @@ async def apply(user_access_token: str, programUuid: str):
     'data',
 ])
 async def test_apply_route_properties(property_name):
-    with open(setToken.path_to_user_token, 'r', encoding='utf-8') as file:
+    """
+    Verify properties received from the apply route above
+    """
+    with open(setToken.PATH_TO_USER_TOKEN, 'r', encoding='utf-8') as file:
         file_data = file.read()
         user_token_data = json.loads(file_data)
 
@@ -74,5 +83,7 @@ async def test_apply_route_properties(property_name):
         email_access_token_map[email] = access_token
 
     for each_email in setToken.user_email_list:
-        json_data_from_apply_route = await apply(user_access_token=email_access_token_map[each_email], programUuid=program_uuid)
+        json_data_from_apply_route = await apply(
+            user_access_token=email_access_token_map[each_email], program_uuid=PROGRAM_UUID
+        )
         assert property_name in json_data_from_apply_route

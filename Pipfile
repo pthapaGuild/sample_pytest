@@ -8,6 +8,8 @@ pytest = "*"
 pytest-asyncio = "*"
 httpx = "*"
 python-dotenv = "*"
+pylint = "*"
+autopep8 = "*"
 
 [dev-packages]
 
