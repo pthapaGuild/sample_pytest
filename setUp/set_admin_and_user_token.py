@@ -14,7 +14,6 @@ parser.add_argument("--env_file", default="staging",
 args = parser.parse_args()
 
 env_path = f"env/.env.{args.env_file}"
-env_file = os.getenv("ENV_FILE", "staging")
 
 load_dotenv(env_path)
 
@@ -30,7 +29,6 @@ with open(PATH_TO_USER_JSON, 'r', encoding='utf-8') as file:
 user_details = user_json['staging'] if args.env_file == 'staging' else user_json['prod']
 
 user_email_list: list[str] = [item['user_email'] for item in user_details]
-print(user_email_list)
 
 
 def _set_token_object(access_token, id_token):

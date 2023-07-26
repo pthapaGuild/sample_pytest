@@ -40,7 +40,7 @@ def test_password():
 
 
 async def apply(user_access_token: str, program_uuid: str):
-    """Get the response of the apply funciton to be used later"""
+    """Get the response of the Apply route to be used later"""
     headers = {
         'Content-Type': 'application/json',
         'Authorization': f'Bearer {user_access_token}'
